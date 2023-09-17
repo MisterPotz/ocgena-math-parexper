@@ -193,4 +193,10 @@ object Maths {
     val productFun : TwoSideFun = { left : Double, right : Double ->
         left * right
     }
+
+    val foldingFunctions = mutableMapOf(
+        "+" to plusFun,
+        "-" to minusFun,
+        "*" to productFun
+    )
 }
