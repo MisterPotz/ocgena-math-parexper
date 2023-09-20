@@ -81,25 +81,6 @@ class NoBrackExprParser(private val opsNodes: TokenParser.OpsNodes) {
         transformOpsWithPriority(1)
     }
 
-    fun transformUnsaries() {
-        for ((opIndex, op) in opStack.listIterator().withIndex()) {
-            if (op in unaryOp) {
-                val valueIndex = getValueIndexForOp(opIndex)!!.requireSingle
-
-                val newNode = nodeSpace[getOrCreateNodeAtValueIndex(valueIndex)]
-
-                val unaryNode = when (op) {
-                    unminus -> UniOperatorNode(newNode, opKey = "-", operation = Maths.uniMinusFun)
-                    else -> throw IllegalStateException()
-                }
-                val unaryNodeId = nodeSpace.addNodeAndGetId(unaryNode)
-
-                consumeOpAtIndex(opIndex)
-                valueAndNodes[valueIndex] = unaryNodeId
-            }
-        }
-    }
-
     @Suppress("UNCHECKED_CAST")
     class NodeBuilder {
         var op: String? = null
@@ -136,7 +117,7 @@ class NoBrackExprParser(private val opsNodes: TokenParser.OpsNodes) {
         }
     }
 
-    fun transformOpsWithPriority(priority: Int) {
+    private fun transformOpsWithPriority(priority: Int) {
         val nodeBuilder = NodeBuilder()
         val allowedOps = opPriority[priority]!!
         var opIndex = 0
