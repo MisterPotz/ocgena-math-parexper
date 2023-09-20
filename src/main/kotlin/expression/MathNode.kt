@@ -29,6 +29,10 @@ class ConstantNode(val value: Double) : MathNode {
         return value
     }
 
+    override fun toString(): String {
+        return printExpr()
+    }
+
     override fun printTree(): String {
         return value.toString()
     }
@@ -41,6 +45,10 @@ class ConstantNode(val value: Double) : MathNode {
 class VariableNode(val name : String) : MathNode {
     override fun evaluate(parameterSpace: ParameterSpace): Double {
         return parameterSpace[name]
+    }
+
+    override fun toString(): String {
+        return printExpr()
     }
 
     override fun printTree(): String {
@@ -125,6 +133,10 @@ class UniOperatorNode(private val childNode : MathNode,  override val opKey: Str
         return operation(value)
     }
 
+    override fun toString(): String {
+        return printExpr()
+    }
+
     override fun printTree(): String {
         return """uni $opKey: 
             |${childNode.printTree().prependIndent("\t")}
@@ -141,6 +153,10 @@ class TwoSideOperatorNode(
     override val opKey: String,
     val foldingFunction : TwoSideFun,
 ) : OperatorNode {
+
+    override fun toString(): String {
+        return printExpr()
+    }
 
     override fun evaluate(parameterSpace: ParameterSpace): Double {
         return children.subList(1, children.size).fold(children.first().evaluate(parameterSpace)) { accum, child ->

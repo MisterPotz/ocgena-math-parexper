@@ -12,7 +12,7 @@ class StringParser {
 }
 
 
-class NodeBuilder(val tokens: List<String>) {
+class TokenParser(private val tokens: List<String>) {
     private val opStack: MutableList<String> = mutableListOf()
     private val valueNodeStack: MutableList<String> = mutableListOf()
     private val nodeSet: MutableList<MathNode> = mutableListOf()
@@ -118,9 +118,16 @@ val openBrack = "("
 val brack = mutableSetOf("(", ")")
 val twoSideOp = mutableSetOf("+", "-", "*")
 val variableMatcher = Regex("""[a-zA-Z]+[\da-zA-Z]*""")
+
 val opPriority = mutableMapOf(
-    "+" to 1,
-    "-" to 1,
-    "*" to 10,
-    "unminus" to 100,
+    1 to setOf(plus, minus),
+    10 to setOf(product),
+    100 to setOf(unminus)
+)
+
+val opToFun = mutableMapOf(
+    unminus to Maths.uniMinusFun,
+    plus to Maths.plusFun,
+    minus to Maths.minusFun,
+    product to Maths.productFun
 )
