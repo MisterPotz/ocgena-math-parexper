@@ -1,6 +1,10 @@
-import expression.*
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+import ru.misterpotz.expression.paramspace.EmptyParameterSpace
+import ru.misterpotz.expression.paramspace.VariableParameterSpace
+import ru.misterpotz.expression.m
+import ru.misterpotz.expression.plus
+import ru.misterpotz.expression.times
 
 class VariableTest {
     @Test
@@ -20,6 +24,4 @@ class VariableTest {
             expr.evaluate(EmptyParameterSpace)
         }
     }
-
-
 }

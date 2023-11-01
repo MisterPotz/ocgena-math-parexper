@@ -1,14 +1,12 @@
-package expression
+package ru.misterpotz.expression
+
+import ru.misterpotz.expression.node.MathNode
 
 class StringParser {
     var tokens = listOf<String>()
     fun acceptTokens(tokens: List<String>) {
         this.tokens = tokens
     }
-
-//    fun parse(): MathNode? {
-//
-//    }
 }
 
 
@@ -21,8 +19,6 @@ class TokenParser(private val tokens: List<String>) {
     fun reduce() {
         val closestOpOpenBrack = opStack.findLast { it == openBrack }
         val closestNodeOpenBrack = valueNodeStack.findLast { it == openBrack }
-
-
     }
 
     fun parseTokens() {
@@ -78,56 +74,6 @@ class TokenParser(private val tokens: List<String>) {
         val valueAndNodes: List<String>,
         val nodeSpace: NodeSpace
     )
-    data class ParsingRange(
-        val opRange: IntRange,
-        val valueRange: IntRange,
-    )
 }
 
 
-//// 1 + -3 *(-3 * k) - 10
-//
-//// op
-//+ * ( unmi * ) -
-//// numb
-//1 3 ( 3 k ) 10
-//// nodes
-//
-//
-//// op
-//
-//// numb
-//
-//// nodes
-//
-//
-//a: (-3*k)
-//b: 3*a
-//c: 1+b
-//d: c-10
-
-const val unminus = "unminus"
-const val plus = "+"
-const val product = "*"
-const val minus = "-"
-
-val unaryOp = mutableSetOf("unminus")
-val tokenOps = mutableSetOf("+", "-", "*")
-val closeBrack = ")"
-val openBrack = "("
-val brack = mutableSetOf("(", ")")
-val twoSideOp = mutableSetOf("+", "-", "*")
-val variableMatcher = Regex("""[a-zA-Z]+[\da-zA-Z]*""")
-
-val opPriority = mutableMapOf(
-    1 to setOf(plus, minus),
-    10 to setOf(product),
-    100 to setOf(unminus)
-)
-
-val opToFun = mutableMapOf(
-    unminus to Maths.uniMinusFun,
-    plus to Maths.plusFun,
-    minus to Maths.minusFun,
-    product to Maths.productFun
-)

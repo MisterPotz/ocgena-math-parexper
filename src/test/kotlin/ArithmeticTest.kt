@@ -1,6 +1,11 @@
-import expression.*
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+import ru.misterpotz.expression.paramspace.EmptyParameterSpace
+import ru.misterpotz.expression.m
+import ru.misterpotz.expression.minus
+import ru.misterpotz.expression.plus
+import ru.misterpotz.expression.times
+import ru.misterpotz.expression.unaryMinus
 
 class ArithmeticTest {
 
@@ -52,7 +57,7 @@ class ArithmeticTest {
         println(expr.printTree())
         println(expr.printExpr())
 
-        val value =  expr.evaluate(EmptyParameterSpace)
+        val value =  expr.evaluate()
         Assertions.assertEquals(60.0, value)
     }
 }

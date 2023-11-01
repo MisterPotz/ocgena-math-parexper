@@ -1,4 +1,7 @@
-import expression.*
+import ru.misterpotz.expression.paramspace.EmptyParameterSpace
+import ru.misterpotz.expression.m
+import ru.misterpotz.expression.plus
+import ru.misterpotz.expression.times
 
 fun main(args: Array<String>) {
     println("Hello World!")
