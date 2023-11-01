@@ -3,7 +3,7 @@ import org.junit.jupiter.api.Test
 import ru.misterpotz.expression.paramspace.EmptyParameterSpace
 import ru.misterpotz.expression.NoBrackExprParser
 import ru.misterpotz.expression.NodeSpace
-import ru.misterpotz.expression.TokenParser
+import ru.misterpotz.expression.builder.TokenParseBuilder
 import ru.misterpotz.expression.minus
 import ru.misterpotz.expression.plus
 import ru.misterpotz.expression.product
@@ -15,7 +15,7 @@ class NoBrackParserTest {
     fun simpleExpTest() {
         val nodeSpace = NodeSpace()
         val noBrackExprParser = NoBrackExprParser(
-            opsNodes = TokenParser.OpsNodes(
+            opsNodes = TokenParseBuilder.OpsNodes(
                 ops = listOf("+", unminus, "*"),
                 valueAndNodes = listOf("1", "3", "5"),
                 nodeSpace = nodeSpace
@@ -30,7 +30,7 @@ class NoBrackParserTest {
     fun valueIndexForOpsTest() {
         val nodeSpace = NodeSpace()
         val noBrackExprParser = NoBrackExprParser(
-            opsNodes = TokenParser.OpsNodes(
+            opsNodes = TokenParseBuilder.OpsNodes(
                 ops = listOf(unminus, "+", unminus, "*"),
                 valueAndNodes = listOf("3", "4", "5"),
                 nodeSpace = nodeSpace
@@ -47,7 +47,7 @@ class NoBrackParserTest {
     fun moreReductionTest() {
         val nodeSpace = NodeSpace()
         val noBrackExprParser = NoBrackExprParser(
-            opsNodes = TokenParser.OpsNodes(
+            opsNodes = TokenParseBuilder.OpsNodes(
                 ops = listOf(unminus, "+", unminus, "*"),
                 valueAndNodes = listOf("3", "4", "5"),
                 nodeSpace = nodeSpace
@@ -66,7 +66,7 @@ class NoBrackParserTest {
     fun complexExpTest() {
         val nodeSpace = NodeSpace()
         val noBrackExprParser = NoBrackExprParser(
-            opsNodes = TokenParser.OpsNodes(
+            opsNodes = TokenParseBuilder.OpsNodes(
                 ops = listOf(unminus, product, minus, unminus, plus, minus, product),
                 valueAndNodes = listOf("10", "5", "3", "20", "1", "2"),
                 nodeSpace

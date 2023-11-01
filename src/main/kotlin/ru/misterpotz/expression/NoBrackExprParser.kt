@@ -5,18 +5,25 @@ import ru.misterpotz.expression.node.MathNode
 import ru.misterpotz.expression.node.TwoSideOperatorNode
 import ru.misterpotz.expression.node.UniOperatorNode
 import ru.misterpotz.expression.node.VariableNode
+import ru.misterpotz.expression.builder.TokenParseBuilder
 
-class NoBrackExprParser(opsNodes: TokenParser.OpsNodes) {
+class NoBrackExprParser(
+    opsNodes: TokenParseBuilder.OpsNodes
+) {
     internal val opStack = opsNodes.ops.toMutableList()
     internal val valueAndNodes = opsNodes.valueAndNodes.toMutableList()
     private val nodeSpace = opsNodes.nodeSpace
 
     fun fullTransform(): MathNode {
+        val lastNodeId = fullTransformAndGetNodeId()
+        return nodeSpace[lastNodeId]
+    }
+
+    fun fullTransformAndGetNodeId() : String {
         for (priority in opPriority.keys.sortedDescending()) {
             transformOpsWithPriority(priority)
         }
-        val lastNode = valueAndNodes.first()
-        return nodeSpace[lastNode]
+        return valueAndNodes.first()
     }
 
     fun getValuesPointersForOp(opIndex: Int): Values? {
@@ -54,7 +61,7 @@ class NoBrackExprParser(opsNodes: TokenParser.OpsNodes) {
             return lastNode
         }
 
-        return if (variableMatcher.matches(lastNode)) {
+        return if (processedVariableMatcher.matches(lastNode)) {
             val newNode = VariableNode(name = lastNode)
             nodeSpace.addNodeAndGetId(newNode)
         } else {
