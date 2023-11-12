@@ -1,6 +1,6 @@
 plugins {
     kotlin("jvm") version "1.9.0"
-    application
+    `java-library`
 }
 
 group = "ru.misterpotz"
@@ -20,8 +20,4 @@ tasks.test {
 
 kotlin {
     jvmToolchain(8)
-}
-
-application {
-    mainClass.set("MainKt")
 }
