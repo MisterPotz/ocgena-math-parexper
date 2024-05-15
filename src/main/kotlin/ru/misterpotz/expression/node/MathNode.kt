@@ -21,4 +21,3 @@ interface OperatorNode : MathNode {
     val children : List<MathNode>
     val opKey : String
 }
-

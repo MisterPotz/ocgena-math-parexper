@@ -2,9 +2,10 @@ package ru.misterpotz.expression.node
 
 import ru.misterpotz.expression.paramspace.ParameterSpace
 
-class UniOperatorNode(private val childNode : MathNode, override val opKey: String, private val operation : (value : Double) -> Double,
+class UniOperatorNode(
+    private val childNode: MathNode, override val opKey: String, private val operation: (value: Double) -> Double,
 
-                      ): OperatorNode {
+    ) : OperatorNode {
     override val children: List<MathNode> = listOf(childNode)
     override fun evaluate(parameterSpace: ParameterSpace): Double {
         val value = childNode.evaluate(parameterSpace)
